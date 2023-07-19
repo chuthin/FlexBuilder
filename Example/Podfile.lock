@@ -1,0 +1,62 @@
+PODS:
+  - DiffableDataSources (0.5.0):
+    - DifferenceKit/AppKitExtension (~> 1.1)
+    - DifferenceKit/UIKitExtension (~> 1.1)
+  - DifferenceKit/Core (1.3.0)
+  - DifferenceKit/UIKitExtension (1.3.0):
+    - DifferenceKit/Core
+  - FlexBuilder (1.0.0):
+    - FlexLayout (~> 1.3)
+    - PinLayout (= 1.10.0)
+    - RxCocoa (~> 6.5.0)
+    - RxSwift (~> 6.5.0)
+  - FlexLayout (1.3.33)
+  - IBPCollectionViewCompositionalLayout (0.6.9)
+  - PinLayout (1.10.0)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxFeedback (4.0.0):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+
+DEPENDENCIES:
+  - DiffableDataSources
+  - FlexBuilder (from `../`)
+  - IBPCollectionViewCompositionalLayout
+  - RxFeedback
+
+SPEC REPOS:
+  trunk:
+    - DiffableDataSources
+    - DifferenceKit
+    - FlexLayout
+    - IBPCollectionViewCompositionalLayout
+    - PinLayout
+    - RxCocoa
+    - RxFeedback
+    - RxRelay
+    - RxSwift
+
+EXTERNAL SOURCES:
+  FlexBuilder:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  DiffableDataSources: 1ddde2de1978cc02619b2c3bfafab20e68b57279
+  DifferenceKit: ab185c4d7f9cef8af3fcf593e5b387fb81e999ca
+  FlexBuilder: 48bc32be5f2f083651e77d757ba7a22ab62a8c20
+  FlexLayout: d515437814cc7a6b50d6d2d14da7cd8059f8d6f6
+  IBPCollectionViewCompositionalLayout: bbb29e39ac564666a8c3cdb6633ed944b6feb55b
+  PinLayout: e50e9a748b632905fca6e67043ea4b05d6c92186
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxFeedback: c762a59b678ed8e30b5c84b6e4e03ad0341d2ecb
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+
+PODFILE CHECKSUM: 1c5f0c680476e3275dd5905de5d29a86c9ea306a
+
+COCOAPODS: 1.12.0
