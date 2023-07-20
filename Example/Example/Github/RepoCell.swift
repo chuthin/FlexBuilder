@@ -8,21 +8,19 @@
 import Foundation
 import FlexBuilder
 class RepoCell : ActionTableViewCell<GithubAction> {
-    var title = FText()
-        .numberOfLines(0)
-        .margin(top: 12, bottom: 12, left: 24, right: 24).font(.title2)
-        .build()
-    var descriptonTitle = FText()
-        .margin(top: 0, bottom: 12, left: 24, right: 24).font(.body).color(.darkGray)
-        .numberOfLines(0).build()
-    var divier = FDivider().build()
-    override func body() -> UIView {
+    @Variable var repo: Repo? = nil
+    @Variable var dividerHidden:Bool = true
+    override func body() -> FView {
         FVStack {
             FHStack {
                 FVStack {
-                    title
-                    descriptonTitle
-
+                    FText($repo.asObservable().map{ $0?.name})
+                        .numberOfLines(0)
+                        .margin(top: 12, bottom: 12, left: 24, right: 24).font(.title2)
+                    FText($repo.asObservable().map{ $0?.description})
+                        .margin(top: 0, bottom: 12, left: 24, right: 24).font(.body).color(.darkGray)
+                        .numberOfLines(0)
+                   
                 }.fits()
                 FButton("More")
                     .backgroundColor(.lightGray)
@@ -34,7 +32,7 @@ class RepoCell : ActionTableViewCell<GithubAction> {
                         self?.handle?(.more(self?.data as? Repo))
                     }
             }
-            divier
-        }.build()
+            FDivider().hidden(bind: $dividerHidden)
+        }
     }
 }

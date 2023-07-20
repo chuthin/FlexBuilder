@@ -92,9 +92,8 @@ struct GithubController : ReactViewController {
                     .register{
                         FCell<RepoCell,Repo>()
                             .dataContext{ cell, indexPath, repo, numberOfItems in
-                                cell?.title.flexText(repo.name)
-                                cell?.descriptonTitle.flexText(repo.description)
-                                cell?.divier.hidden(indexPath.item == numberOfItems - 1)
+                                cell?.repo = repo
+                                cell?.dividerHidden = indexPath.item == numberOfItems - 1
                             }
                             .action{ action in
                                 handle(action)
@@ -131,7 +130,7 @@ struct GithubController : ReactViewController {
 
 struct GithubDetailView : ViewBuilder {
     var repo: Repo
-    var body: View {
+    var body: FView {
         FVStack {
             FText(repo.name).font(.title1).color(.black)
             FSpacer()

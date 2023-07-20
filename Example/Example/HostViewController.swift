@@ -32,7 +32,6 @@ class HostViewController : UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
             containerView.pin.all(self.view.pin.safeArea)
-            print(containerView.frame)
             self.containerView.flex.layout()
     }
 }

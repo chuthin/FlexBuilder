@@ -30,8 +30,9 @@ open class BaseTableViewCell : UITableViewCell, CellDataContext {
         contentView.backgroundColor(body.backgroundColor ?? .clear)
     }
     
-    open func body() -> UIView {
-        return UIView()
+    
+    open func body() -> FView {
+        return FVStack()
     }
     
     open func setDataContext(indexPath: IndexPath, data: Identifier, numberOfItems: Int) {

@@ -9,26 +9,26 @@ import UIKit
 import FlexLayout
 
 public protocol ViewConvertable {
-    func asViews() -> [View]
+    func asViews() -> [FView]
 }
 
-extension Array: ViewConvertable where Element == View {
-    public func asViews() -> [View] { self }
+extension Array: ViewConvertable where Element == FView {
+    public func asViews() -> [FView] { self }
 }
 
 // Allows an array of an array of views to be used with ViewResultBuilder
 extension Array where Element == ViewConvertable {
-    public func asViews() -> [View] { self.flatMap { $0.asViews() } }
+    public func asViews() -> [FView] { self.flatMap { $0.asViews() } }
 }
 
-public protocol View: ViewConvertable {
+public protocol FView: ViewConvertable {
     func build() -> UIView
     //func build(direction : Flex.Direction) -> UIView
     func callAsFunction() -> UIView
 }
 
-extension View {
-    public func asViews() -> [View] {
+extension FView {
+    public func asViews() -> [FView] {
         [build()]
     }
     public func callAsFunction() -> UIView {
@@ -37,7 +37,7 @@ extension View {
 }
 
 // Allows view builder modifications to be made to a given UIView type
-public protocol ModifiableView: View {
+public protocol ModifiableView: FView {
     associatedtype Base: UIView
     var modifiableView: Base { get }
 }
@@ -71,7 +71,7 @@ public struct ViewModifier<Base:UIView>: ModifiableView {
     public init(_ view: Base) {
         self.modifiableView = view
     }
-    public init(_ view: View) where Base == UIView {
+    public init(_ view: FView) where Base == UIView {
         self.modifiableView = view()
     }
     public init(_ view: Base, modifier: (_ view: Base) -> Void) {
@@ -86,7 +86,7 @@ public struct ViewModifier<Base:UIView>: ModifiableView {
 
 // ViewBuilder allows for user-defined custom view configurations
 public protocol ViewBuilder: ModifiableView {
-    var body: View { get }
+    var body: FView { get }
 }
 
 extension ViewBuilder {
@@ -117,10 +117,10 @@ extension UIView: ModifiableView {
 }
 
 @resultBuilder public struct ViewResultBuilder {
-    public static func buildBlock() -> [View] {
+    public static func buildBlock() -> [FView] {
         []
     }
-    public static func buildBlock(_ values: ViewConvertable...) -> [View] {
+    public static func buildBlock(_ values: ViewConvertable...) -> [FView] {
         values.flatMap { $0.asViews() }
     }
 
@@ -134,7 +134,7 @@ extension UIView: ModifiableView {
     public static func buildEither(second: ViewConvertable) -> ViewConvertable {
         second
     }
-    public static func buildArray(_ components: [[View]]) -> [View] {
+    public static func buildArray(_ components: [[FView]]) -> [FView] {
         components.flatMap { $0 }
     }
 }

@@ -7,17 +7,17 @@
 
 import Foundation
 import FlexBuilder
+import RxSwift
 class ItemCell : BaseCollectionViewCell {
-    let title = FText().color(.black).build()
-    override func body() -> UIView {
+    let item:Observable<String>? = Observable<String>.just("")
+    override func body() -> FView {
         FVStack {
             FVStack {
-                title.alignment(.center).alignSelf(.center)
+                FText().text(bind: item ?? .empty()).color(.black).alignment(.center).alignSelf(.center)
             }.justifyContent(.center)
-                .backgroundColor(.blue)
-                .fits()
-           
-        }.build()
+            .backgroundColor(.blue)
+            .fits()
+        }
     }
     
     override func isEstimatedHeight() -> Bool {

@@ -10,18 +10,18 @@ import UIKit
 import RxSwift
 import FlexLayout
 public struct FForEach: ViewConvertable {
-    private var views: [View] = []
-    public init(_ count: Int, _ builder: (_ index: Int) -> View) {
+    private var views: [FView] = []
+    public init(_ count: Int, _ builder: (_ index: Int) -> FView) {
         for index in 0..<count {
             views.append(builder(index))
         }
     }
 
-    public init<Element>(_ array: [Element], _ builder: (_ element: Element) -> View) {
+    public init<Element>(_ array: [Element], _ builder: (_ element: Element) -> FView) {
         views = array.map { builder($0) }
     }
 
-    public func asViews() -> [View] {
+    public func asViews() -> [FView] {
         views
     }
 }
@@ -33,7 +33,7 @@ public struct DynamicForEach: ModifiableView {
         
     }
     
-    public init<Element>(_ array: Observable<[Element]>, _ builder:@escaping (_ index:Int,_ element: Element) -> View) {
+    public init<Element>(_ array: Observable<[Element]>, _ builder:@escaping (_ index:Int,_ element: Element) -> FView) {
         modifiableView.setData(array, builder)
     }
 }
@@ -50,7 +50,7 @@ extension ModifiableView where Base == BuilderDynamicForEach {
         }
     }
     
-    public func itemsSource<Element>(_ array: Observable<[Element]>, _ builder:@escaping (_ index:Int,_ element: Element) -> View)  -> ViewModifier<Base> {
+    public func itemsSource<Element>(_ array: Observable<[Element]>, _ builder:@escaping (_ index:Int,_ element: Element) -> FView)  -> ViewModifier<Base> {
         ViewModifier(modifiableView) { view in
             view.setData(array, builder)
         }
@@ -58,7 +58,7 @@ extension ModifiableView where Base == BuilderDynamicForEach {
 }
 
 public class BuilderDynamicForEach: UIView {
-    func setData<Element>(_ data:Observable<[Element]>, _ builder:@escaping (_ index:Int,_ element: Element) -> FlexBuilder.View) {
+    func setData<Element>(_ data:Observable<[Element]>, _ builder:@escaping (_ index:Int,_ element: Element) -> FlexBuilder.FView) {
         data
             .observe(on: ConcurrentMainScheduler.instance)
             .subscribe(onNext:{[weak self] value in
@@ -66,7 +66,7 @@ public class BuilderDynamicForEach: UIView {
             }).disposed(by: modifiableView.rxDisposeBag)
     }
     
-    func updateData<Element>(_ data:[Element],_ builder: (_ index:Int, _ element: Element) -> FlexBuilder.View) {
+    func updateData<Element>(_ data:[Element],_ builder: (_ index:Int, _ element: Element) -> FlexBuilder.FView) {
         self.removeSubviews()
         for (index,item) in data.enumerated() {
             self.flex.addItem(builder(index,item).build())

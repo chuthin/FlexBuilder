@@ -94,7 +94,7 @@ extension Collection where Element == any AnyCell {
 }
 
 @resultBuilder public struct AnyCellBuilder {
-    public static func buildBlock() -> [View] {
+    public static func buildBlock() -> [FView] {
         []
     }
     public static func buildBlock(_ values: any AnyCell...) -> [any AnyCell] {
@@ -106,7 +106,6 @@ public protocol CellDataContext {
     var data:Identifier? {get set}
     func setDataContext(indexPath:IndexPath,data:Identifier, numberOfItems: Int)
 }
-
 
 public protocol Identifier  {
     var identifier: String {get}

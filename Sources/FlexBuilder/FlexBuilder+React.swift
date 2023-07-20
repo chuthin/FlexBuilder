@@ -58,7 +58,7 @@ class RenderObject<S,E> :NSObject {
         self.environment = environment
     }
 
-    func expo<A,V:View>(scheduler:ImmediateSchedulerType,  viewBuilder: @escaping (BehaviorRelay<S>, @escaping (A) -> Void) -> V, reducer:@escaping (S,A) -> S, effect: Effect<E,S,A>?) -> V {
+    func expo<A,V:FView>(scheduler:ImmediateSchedulerType,  viewBuilder: @escaping (BehaviorRelay<S>, @escaping (A) -> Void) -> V, reducer:@escaping (S,A) -> S, effect: Effect<E,S,A>?) -> V {
         let fakeActions  = BehaviorRelay<A?>(value: nil);
         let state = BehaviorRelay<S>(value: initState)
         if let environment = self.environment {

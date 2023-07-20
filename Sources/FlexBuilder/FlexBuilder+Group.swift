@@ -9,13 +9,13 @@ import Foundation
 
 struct FGroup: ViewConvertable {
 
-    private var views: [View]
+    private var views: [FView]
 
     public init(@ViewResultBuilder  _ views: () -> ViewConvertable) {
         self.views = views().asViews()
     }
 
-    func asViews() -> [View] {
+    func asViews() -> [FView] {
         views
     }
 

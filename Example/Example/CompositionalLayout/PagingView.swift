@@ -10,42 +10,40 @@ import UIKit
 import FlexBuilder
 import FlexLayout
 
-struct PagingView : ViewBuilder {
+struct PagingView : ControllerBuilder {
     let  allItem:[Int] =  Array(0...4)
     @Variable var indicator = createSelect(5, index: 0)
     @Variable var page:Int = 0
-    var body: View {
-        FVStack {
-            LazyGrid(allItem)
-                .register{
-                    FCell<ItemCell,Int>()
-                        .dataContext{ cell, indexPath , newsItem, numberOfItems in
-                            cell?.title.flexText("\(newsItem)")
-                        }
-                }
-                .onSelect{
-                    print($0.indexPath)
-                }
-                .onPageChange{ index in
-                    indicator = createSelect(5, index: index)
-                }
-                .horizontalPage(bind: $page)
-                .showHorizontalIndicator(false)
-                .fits()
-                .backgroundColor(.white)
-                .pagingEnabled(true)
-                .layout(pagingLayout)
-            FVStack{
-                DynamicForEach($indicator.asObservable()) { index, value in
-                    FVStack()
-                        .backgroundColor(value ? .white : .gray)
-                        .height(10).width(10).cornerRadius(5)
-                        .margin(.horizontal, 4)
-                        .onTapGesture{_ in
-                            page = index
-                        }
-                }.direction(.row)
-            }.alignItems(.center).margin(.bottom,24).position(.absolute).height(20).bottom(0).horizontally(12)
+    func view() -> any BuilderViewController {
+        FViewController {
+            FVStack {
+                LazyGrid(allItem)
+                    .register{
+                        FCell<ItemCell,Int>()
+                    }
+                    .onSelect{
+                        print($0.indexPath)
+                    }
+                    .onPageChange{ index in
+                        indicator = createSelect(5, index: index)
+                    }
+                    .horizontalPage(bind: $page)
+                    .showHorizontalIndicator(false)
+                    .fits()
+                    .pagingEnabled(true)
+                    .layout(pagingLayout)
+                FVStack{
+                    DynamicForEach($indicator.asObservable()) { index, value in
+                        FVStack()
+                            .backgroundColor(value ? .white : .gray)
+                            .height(10).width(10).cornerRadius(5)
+                            .margin(.horizontal, 4)
+                            .onTapGesture{_ in
+                                page = index
+                            }
+                    }.direction(.row)
+                }.alignItems(.center).margin(.bottom,24).position(.absolute).height(20).bottom(0).horizontally(12)
+            }
         }
     }
 }

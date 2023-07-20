@@ -30,7 +30,7 @@ class ConferenceNewsFeedCell: BaseCollectionViewCell {
         }
     }
 
-    override func body() -> UIView {
+    override func body() -> FView {
         FVStack {
             titleLabel
                 .margin(.vertical, 8)
@@ -41,7 +41,7 @@ class ConferenceNewsFeedCell: BaseCollectionViewCell {
                 .margin(.vertical, 8)
                 .margin(.horizontal, 12)
             separatorView
-        }.build()
+        }
     }
 
 

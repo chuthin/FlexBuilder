@@ -10,7 +10,7 @@ import UIKit
 // Helpers for view conversion
 extension UIView {
 
-    public func addSubview(_ view: View) {
+    public func addSubview(_ view: FView) {
         self.flex.addItem(view())
     }
 

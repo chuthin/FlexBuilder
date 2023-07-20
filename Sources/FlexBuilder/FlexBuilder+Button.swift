@@ -22,7 +22,7 @@ public struct FButton: ModifiableView {
         modifiableView.setImage(UIImage(named: image), for: .normal)
     }
 
-    public init(_ view: () -> View) {
+    public init(_ view: () -> FView) {
         modifiableView.removeSubviews()
         let view = view().build().position(value: .absolute).all(0).userInteractionEnabled(false)
         modifiableView.flex.addItem(view)

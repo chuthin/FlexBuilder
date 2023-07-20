@@ -26,7 +26,6 @@ open class BuilderLazyGridView<Section:Hashable & Identifier,Item:Hashable & Ide
     func configureDataSource() {
         lazyDataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: self) {
             (collectionView: UICollectionView, indexPath: IndexPath, identifier: Item) -> UICollectionViewCell? in
-            print(identifier.identifier)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier.identifier,for: indexPath)
             if let dataCell = cell as? CellDataContext {
                 if let view = collectionView as? BuilderLazyGridView,  let cellDefine = view.cells.getCell(identifier.identifier) {

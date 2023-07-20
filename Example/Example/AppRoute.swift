@@ -94,7 +94,7 @@ extension LayoutRoute : Routable {
         case .raywenderlich:
             return .push(ReywnderlichTutorialController().viewController)
         case .pagingView:
-            return .push(HostViewController(PagingView().build()))
+            return .push(PagingView().viewController)
         }
     }
 }

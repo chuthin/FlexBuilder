@@ -29,6 +29,7 @@ struct ListController : ControllerBuilder {
                                 cell?.title.flexText(lang.name)
                                 cell?.descriptonTitle.flexText(lang.description)
                                 cell?.divier.display(index.item ==  Data.programing.count || index.item == count - 1 ? .none : .flex)
+                                
                             }
                     }
                     .showVerticalIndicator(false)

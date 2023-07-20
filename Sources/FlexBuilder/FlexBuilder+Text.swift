@@ -43,7 +43,7 @@ extension ModifiableView where Base: UILabel {
     }
 
     @discardableResult
-    public func text<Binding:RxBinding>(bind binding: Binding, needsLayout:Bool = true) -> ViewModifier<Base> where Binding.T == String {
+    public func text<Binding:RxBinding>(bind binding: Binding, needsLayout:Bool = false) -> ViewModifier<Base> where Binding.T == String {
         ViewModifier(modifiableView) { modifiableView in
             binding.asObservable()
                 .observe(on: ConcurrentMainScheduler.instance)
@@ -59,7 +59,7 @@ extension ModifiableView where Base: UILabel {
     }
 
     @discardableResult
-    public func text<Binding:RxBinding>(bind binding: Binding, needsLayout:Bool = true) -> ViewModifier<Base> where Binding.T == String? {
+    public func text<Binding:RxBinding>(bind binding: Binding, needsLayout:Bool = false) -> ViewModifier<Base> where Binding.T == String? {
         ViewModifier(modifiableView) { modifiableView in
             binding.asObservable()
                 .observe(on: ConcurrentMainScheduler.instance)

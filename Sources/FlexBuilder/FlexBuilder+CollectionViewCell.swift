@@ -36,8 +36,8 @@ open class BaseCollectionViewCell : UICollectionViewCell, CellDataContext {
         self.data = data
     }
     
-    open func body() -> UIView {
-        return UIView()
+    open func body() -> FView {
+        return FVStack()
     }
     
     open func setEstimatedHeight(_ value:Bool = true) {

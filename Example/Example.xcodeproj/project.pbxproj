@@ -36,6 +36,7 @@
 		180939A02A68542E0003BF89 /* FlexBuilder+LazyGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1809399F2A68542E0003BF89 /* FlexBuilder+LazyGrid.swift */; };
 		180939A22A6854F30003BF89 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180939A12A6854F30003BF89 /* ItemCell.swift */; };
 		180939A42A6855160003BF89 /* ConferenceNewsFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180939A32A6855160003BF89 /* ConferenceNewsFeedCell.swift */; };
+		180939A72A68610F0003BF89 /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 180939A62A68610F0003BF89 /* PinLayout */; };
 		9D48BDC02C022D9B775475A2 /* Pods_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0E299F2B865E1EEFB159F32 /* Pods_ExampleTests.framework */; };
 		C2624A63918E80F6D94E65E1 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2285446581E85ED5E66C4827 /* Pods_Example.framework */; };
 /* End PBXBuildFile section */
@@ -357,6 +358,7 @@
 				Base,
 			);
 			mainGroup = 180939342A684A270003BF89;
+			
 			productRefGroup = 1809393E2A684A270003BF89 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -868,6 +870,14 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+	
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 180939352A684A270003BF89 /* Project object */;
 }

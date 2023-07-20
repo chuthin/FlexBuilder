@@ -14,7 +14,7 @@ public struct FAlert: BuilderViewController {
 
     public var modifiableView: BuilderAlertViewControllerHostView
     
-    public init<T>(_ data:T, _ view: (T) -> View) {
+    public init<T>(_ data:T, _ view: (T) -> FView) {
         modifiableView = BuilderAlertViewControllerHostView(BuilderAlertViewController())
         modifiableView.setContainerView(view(data).build())
     }

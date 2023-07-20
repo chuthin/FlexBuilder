@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
   s.source_files = 'Sources/FlexBuilder/**/*'
   s.dependency 'FlexLayout', '~> 1.3'
-  s.dependency 'PinLayout', '1.10.0'
+  s.dependency 'PinLayout', '~>1.10.0'
   s.dependency 'RxSwift', '~> 6.5.0'
   s.dependency 'RxCocoa', '~> 6.5.0'
 end

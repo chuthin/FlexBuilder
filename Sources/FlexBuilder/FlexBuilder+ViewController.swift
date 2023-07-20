@@ -23,7 +23,7 @@ public struct FViewController: BuilderViewController {
 
     public var modifiableView = BuilderInternalViewControllerHostView()
 
-    public init(safeArea:Bool = true,_ view: () -> View) {
+    public init(safeArea:Bool = true,_ view: () -> FView) {
         let vc = view()
         modifiableView.viewController.setContainerView(safeArea,vc.build())
     }
@@ -103,7 +103,7 @@ public class BuilderHostViewController : UIViewController {
 }
 
 public extension ControllerBuilder {
-    var body: View  {
+    var body: FView  {
         return self.view()
     }
 
