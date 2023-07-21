@@ -12,6 +12,7 @@ PODS:
     - RxSwift (~> 6.5.0)
   - FlexLayout (1.3.33)
   - IBPCollectionViewCompositionalLayout (0.6.9)
+  - MarkdownKit (1.7.1)
   - PinLayout (1.10.0)
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
@@ -27,6 +28,7 @@ DEPENDENCIES:
   - DiffableDataSources
   - FlexBuilder (from `../`)
   - IBPCollectionViewCompositionalLayout
+  - MarkdownKit
   - RxFeedback
 
 SPEC REPOS:
@@ -35,6 +37,7 @@ SPEC REPOS:
     - DifferenceKit
     - FlexLayout
     - IBPCollectionViewCompositionalLayout
+    - MarkdownKit
     - PinLayout
     - RxCocoa
     - RxFeedback
@@ -51,12 +54,13 @@ SPEC CHECKSUMS:
   FlexBuilder: cb5556bd42069af6ce0abed045bcd854cf7dde99
   FlexLayout: d515437814cc7a6b50d6d2d14da7cd8059f8d6f6
   IBPCollectionViewCompositionalLayout: bbb29e39ac564666a8c3cdb6633ed944b6feb55b
+  MarkdownKit: 0b15195c63cf3e39387949c4bdeccde0055e252a
   PinLayout: e50e9a748b632905fca6e67043ea4b05d6c92186
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxFeedback: c762a59b678ed8e30b5c84b6e4e03ad0341d2ecb
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
 
-PODFILE CHECKSUM: 1c5f0c680476e3275dd5905de5d29a86c9ea306a
+PODFILE CHECKSUM: 90de73d0741f158d492b6bf17d28d01dd752ffeb
 
 COCOAPODS: 1.12.0

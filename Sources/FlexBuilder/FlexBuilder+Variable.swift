@@ -18,7 +18,7 @@ import RxCocoa
     }
 
     public var wrappedValue: T {
-        get { return relay.value }
+        get { return relay.value  }
         nonmutating set { relay.accept(newValue) }
     }
 

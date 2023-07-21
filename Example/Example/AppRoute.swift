@@ -65,6 +65,8 @@ enum LayoutRoute  {
     case list
     case raywenderlich
     case pagingView
+    case alert
+    case compositional
 }
 
 enum ReactiveRoute {
@@ -86,6 +88,8 @@ extension LayoutRoute : Routable {
             let vc = ListRouteController([
                 RouteItem(route: .layout(.list), title: "List layout"),
                 RouteItem(route: .layout(.pagingView), title: "Pagging View"),
+                RouteItem(route: .layout(.alert), title: "Alert"),
+                RouteItem(route: .layout(.compositional), title: "Compositional Layout"),
                 RouteItem(route: .layout(.raywenderlich), title: "RaywenderlichTutorial")]).viewController
             vc.title = "Layout"
             return .push(vc)
@@ -93,8 +97,12 @@ extension LayoutRoute : Routable {
             return .push(ListController().viewController)
         case .raywenderlich:
             return .push(ReywnderlichTutorialController().viewController)
+        case .alert:
+            return .push(AlertViewController().viewController)
         case .pagingView:
-            return .push(PagingView().viewController)
+            return .push(PagingViewController().viewController)
+        case .compositional:
+            return .push(CompositionalLayoutController().viewController)
         }
     }
 }

@@ -117,8 +117,10 @@ extension ModifiableView where Base: UILabel {
     }
 
     @discardableResult
-    public func text(_ value:String) -> ViewModifier<Base> {
-        ViewModifier(modifiableView, keyPath: \.text, value: value)
+    public func text(_ value:String?) -> ViewModifier<Base> {
+        ViewModifier(modifiableView) {
+            $0.flexText(value)
+        }
     }
 
     @discardableResult

@@ -10,7 +10,7 @@ import UIKit
 import FlexBuilder
 import FlexLayout
 
-struct PagingView : ControllerBuilder {
+struct PagingViewController : ControllerBuilder {
     let  allItem:[Int] =  Array(0...4)
     @Variable var indicator = createSelect(5, index: 0)
     @Variable var page:Int = 0

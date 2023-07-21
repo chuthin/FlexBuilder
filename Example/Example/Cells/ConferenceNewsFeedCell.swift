@@ -8,53 +8,42 @@
 import Foundation
 import FlexBuilder
 class ConferenceNewsFeedCell: BaseCollectionViewCell {
-    static let reuseIdentifier = "conference-news-feed-cell-reuseidentifier"
-    let titleLabel = FText()
-        .font(.preferredFont(forTextStyle: .title2))
-        .numberOfLines(0)
-        .userInteractionEnabled(false)
-        .build()
-    let dateLabel = FText()
-        .font(.preferredFont(forTextStyle: .caption2))
-        .userInteractionEnabled(false)
-        .build()
-    let bodyLabel = FText()
-        .numberOfLines(0)
-        .font(.preferredFont(forTextStyle: .body))
-        .userInteractionEnabled(false)
-        .build()
-    let separatorView = FDivider().build()
+    var titleLabel: FText
+    var dateLabel: FText
+    var bodyLabel: FText
+    var separatorView: FDivider
+    
+    override func initView() {
+        titleLabel = FText()
+        dateLabel = FText()
+        bodyLabel = FText()
+        separatorView = FDivider()
+        super.initView()
+    }
+    
     var showsSeparator = true {
         didSet {
-            separatorView.display(showsSeparator ? .flex: .none)
+            separatorView.display(showsSeparator)
         }
     }
 
     override func body() -> FView {
         FVStack {
             titleLabel
+                .font(.preferredFont(forTextStyle: .title2))
+                .numberOfLines(0)
                 .margin(.vertical, 8)
                 .margin(.horizontal, 12)
             dateLabel
+                .font(.preferredFont(forTextStyle: .caption2))
                 .margin(.horizontal,12)
             bodyLabel
+                .numberOfLines(0)
+                .font(.preferredFont(forTextStyle: .body))
                 .margin(.vertical, 8)
                 .margin(.horizontal, 12)
             separatorView
         }
     }
 
-
-   /* override func setDataContext(indexPath: IndexPath, data: ItemModel, numberOfItems: Int) {
-        super.setDataContext(indexPath: indexPath, data: data, numberOfItems: numberOfItems)
-        if let newsItem = data as? NewsFeedItem {
-            self.titleLabel.text = newsItem.title
-            self.bodyLabel.text = newsItem.body
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .short
-            self.dateLabel.text = dateFormatter.string(from: newsItem.date)
-            self.showsSeparator = indexPath.item != numberOfItems - 1
-            self.layout()
-        }
-    }*/
 }

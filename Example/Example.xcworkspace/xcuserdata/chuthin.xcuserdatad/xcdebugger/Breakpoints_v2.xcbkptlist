@@ -81,6 +81,36 @@
                   endingLineNumber = "132"
                   offsetFromSymbolStart = "660">
                </Location>
+               <Location
+                  uuid = "27824095-B5F9-4E09-8A51-E4CF7F7DAD6A - aa45da8add36763c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FlexBuilder.BuilderSectionGridView.collectionView(_: __C.UICollectionView, didSelectItemAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FlexBuilder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chuthin/Documents/GitHub/FlexBuilder/Sources/FlexBuilder/FlexBuilder+Grid.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "132"
+                  endingLineNumber = "132"
+                  offsetFromSymbolStart = "272">
+               </Location>
+               <Location
+                  uuid = "27824095-B5F9-4E09-8A51-E4CF7F7DAD6A - aa45da8add36763c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FlexBuilder.BuilderSectionGridView.collectionView(_: __C.UICollectionView, didSelectItemAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "FlexBuilder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chuthin/Documents/GitHub/FlexBuilder/Sources/FlexBuilder/FlexBuilder+Grid.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "132"
+                  endingLineNumber = "132"
+                  offsetFromSymbolStart = "660">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -113,6 +143,22 @@
             startingLineNumber = "16"
             endingLineNumber = "16"
             landmarkName = "init(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CDA234D2-F27F-45EA-89E3-5C4A83C3D8AC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Sources/FlexBuilder/FlexBuilder+CollectionViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "init?(coder:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

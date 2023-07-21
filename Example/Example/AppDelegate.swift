@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -25,7 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = .black
         UINavigationBar.appearance().backgroundColor(.white)
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        
+      
         return true
     }
 }
+
+
 

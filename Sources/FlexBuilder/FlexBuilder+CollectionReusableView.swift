@@ -7,7 +7,7 @@
 
 import UIKit
 open class ActionSupplementaryView<Action>: BaseSupplementaryView  {
-    var handle: ((Action) -> Void)?
+    public var handle: ((Action) -> Void)?
 }
 
 open class BaseSupplementaryView: UICollectionReusableView, CellDataContext {
@@ -53,7 +53,7 @@ open class BaseSupplementaryView: UICollectionReusableView, CellDataContext {
         
     }
     
-    open func body() -> UIView {
-        return UIView()
+    open func body() -> FView {
+        return FSpacer()
     }
 }

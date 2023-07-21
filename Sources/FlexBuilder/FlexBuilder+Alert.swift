@@ -19,7 +19,7 @@ public struct FAlert: BuilderViewController {
         modifiableView.setContainerView(view(data).build())
     }
     
-    public init(title:String? = nil, message:String? = nil,actions:[AlertAction]) {
+    public init(title:String? = nil, message:String? = nil,actions:[FAlertAction]) {
         let alert = UIAlertController(title: title, message: message, preferredStyle:.alert)
         for action in actions {
             alert.addAction(action.raw)
@@ -27,7 +27,7 @@ public struct FAlert: BuilderViewController {
         modifiableView = BuilderAlertViewControllerHostView(alert)
     }
     
-    public init(title:String? = nil, message:String? = nil,@AlertActionBuilder _ builder: () -> [AlertAction]) {
+    public init(title:String? = nil, message:String? = nil,@AlertActionBuilder _ builder: () -> [FAlertAction]) {
         let alert = UIAlertController(title: title, message: message, preferredStyle:.alert)
         for action in builder() {
             alert.addAction(action.raw)
@@ -37,21 +37,21 @@ public struct FAlert: BuilderViewController {
 }
 
 @resultBuilder public struct AlertActionBuilder {
-    public static func buildBlock() -> [AlertAction] {
+    public static func buildBlock() -> [FAlertAction] {
         []
     }
-    public static func buildBlock(_ values: AlertAction...) -> [AlertAction] {
+    public static func buildBlock(_ values: FAlertAction...) -> [FAlertAction] {
         values
     }
 }
 
-public enum AlertAction {
+public enum FAlertAction {
     case `default`(String?,action: (() -> Void)? = nil)
     case cancel(String?,action: (() -> Void)? = nil)
     case destructive(String?,action: (() -> Void)? = nil)
 }
 
-extension AlertAction {
+extension FAlertAction {
     var raw:UIAlertAction {
         switch self {
         case .default(let string,let action):
