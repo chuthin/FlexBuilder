@@ -87,7 +87,7 @@ extension LayoutRoute : Routable {
         case .all:
             let vc = ListRouteController([
                 RouteItem(route: .layout(.list), title: "List layout"),
-                RouteItem(route: .layout(.pagingView), title: "Pagging View"),
+                RouteItem(route: .layout(.pagingView), title: "Paging View"),
                 RouteItem(route: .layout(.alert), title: "Alert"),
                 RouteItem(route: .layout(.compositional), title: "Compositional Layout"),
                 RouteItem(route: .layout(.raywenderlich), title: "RaywenderlichTutorial")]).viewController

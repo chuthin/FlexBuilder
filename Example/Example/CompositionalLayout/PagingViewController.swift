@@ -45,6 +45,7 @@ struct PagingViewController : ControllerBuilder {
                 }.alignItems(.center).margin(.bottom,24).position(.absolute).height(20).bottom(0).horizontally(12)
             }
         }
+        .title("Paging View")
     }
 }
 

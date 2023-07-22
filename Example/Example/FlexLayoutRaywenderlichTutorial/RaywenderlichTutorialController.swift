@@ -14,7 +14,7 @@ struct ReywnderlichTutorialController : ControllerBuilder {
         return FViewController {
             FScrollView {
                 FVStack {
-                    FImage(named: series.image).aspectRatio(1).contentMode(.scaleAspectFill).clipsToBounds(true)
+                    FImage(named: series.image).aspectRatio(16/9).contentMode(.scaleAspectFill).clipsToBounds(true)
                     FVStack {
                         FHStack(space: 4){
                             FText(String(repeating: "★", count: series.showPopularity)).color(.red)
