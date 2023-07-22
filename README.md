@@ -144,7 +144,7 @@ struct PagingViewController : ControllerBuilder {
 ```
 <br>
 
-The example implements Github searh.
+The Example of using the Reader Monad to inject side effects in Github search .
 
 <br> 
 
