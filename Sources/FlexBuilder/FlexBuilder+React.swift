@@ -91,7 +91,7 @@ public struct EffectView<W,V:ReactViewController,R:Reducer,E:Effector> : Control
         self.viewBuilder = V.init
     }
 
-    public func view() -> any BuilderViewController {
+    public func view() -> any ViewControllerBuilder {
         let vc =  render.expo(scheduler: MainScheduler.asyncInstance, viewBuilder: viewBuilder , reducer: R.reduce, effect: E.effect).view()
         if let controller = vc.viewController as? BuilderHostViewController {
             controller.disposeBag = self.render.disposeBag
@@ -109,7 +109,7 @@ public struct NoEffectView<V:ReactViewController,R:Reducer> : ControllerBuilder 
         self.viewBuilder = V.init
     }
 
-    public func view() -> any BuilderViewController {
+    public func view() -> any ViewControllerBuilder {
         let vc =  render.expo(scheduler: MainScheduler.asyncInstance, viewBuilder: viewBuilder , reducer: R.reduce, effect: nil).view()
         if let controller = vc.viewController as? BuilderHostViewController {
             controller.disposeBag = self.render.disposeBag

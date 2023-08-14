@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct FAlert: BuilderViewController {
+public struct FAlert: ViewControllerBuilder {
     public var viewController: UIViewController {
         return modifiableView.viewController
     }
@@ -94,7 +94,7 @@ public class BuilderAlertViewControllerHostView: UIView {
     }
 }
 
-extension BuilderViewController where Base == BuilderAlertViewControllerHostView {
+extension ViewControllerBuilder where Base == BuilderAlertViewControllerHostView {
     public func dismis() {
         modifiableView.dismis()
     }

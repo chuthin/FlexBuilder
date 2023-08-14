@@ -14,7 +14,7 @@ struct PagingViewController : ControllerBuilder {
     let  allItem:[Int] =  Array(0...4)
     @Variable var indicator = createSelect(5, index: 0)
     @Variable var page:Int = 0
-    func view() -> any BuilderViewController {
+    func view() -> any ViewControllerBuilder {
         FViewController {
             FVStack {
                 LazyGrid(allItem)

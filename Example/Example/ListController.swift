@@ -18,7 +18,7 @@ struct ListController : ControllerBuilder {
 
     }
     
-    func view() -> any BuilderViewController {
+    func view() -> any ViewControllerBuilder {
         return FViewController {
             FVStack {
                 FList(repos)

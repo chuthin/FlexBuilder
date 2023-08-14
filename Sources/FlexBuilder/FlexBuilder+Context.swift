@@ -32,7 +32,7 @@ extension ViewBuilderContextProvider {
         viewController?.navigationItem
     }
 
-    public func present(_ view: any BuilderViewController, animated: Bool = true) {
+    public func present(_ view: any ViewControllerBuilder, animated: Bool = true) {
         navigationController?.present(view.viewController, animated: animated)
     }
 
@@ -41,7 +41,7 @@ extension ViewBuilderContextProvider {
         navigationController?.present(vc, animated: true)
     }
 
-    public func push(_ view: any BuilderViewController, animated: Bool = true) {
+    public func push(_ view: any ViewControllerBuilder, animated: Bool = true) {
         navigationController?.pushViewController(view.viewController, animated: animated)
     }
 

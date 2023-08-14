@@ -18,7 +18,7 @@ struct ListRouteController: ControllerBuilder {
         self.items = items
     }
 
-    func view() -> any BuilderViewController {
+    func view() -> any ViewControllerBuilder {
         FViewController {
             FVStack {
                 FForEach(items){  value in

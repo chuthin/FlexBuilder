@@ -33,7 +33,7 @@ extension UIViewController {
     }
 }
 
-extension BuilderViewController {
+extension ViewControllerBuilder {
     func navigate(_ route:Observable<AppRoute>) -> Self {
         route.observe(on: MainScheduler.instance)
             .subscribe(onNext:{ [weak viewController] value in

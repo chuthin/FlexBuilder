@@ -8,15 +8,15 @@
 import UIKit
 import RxSwift
 import PinLayout
-public protocol BuilderViewController : ModifiableView {
+public protocol ViewControllerBuilder : ModifiableView {
     var viewController: UIViewController { get }
 }
 
 public protocol ControllerBuilder : ViewBuilder {
-    func view() -> any BuilderViewController
+    func view() -> any ViewControllerBuilder
 }
 
-public struct FViewController: BuilderViewController {
+public struct FViewController: ViewControllerBuilder {
     public var viewController: UIViewController {
         return modifiableView.viewController
     }
@@ -54,7 +54,7 @@ extension UIViewController {
     public static let BuilderContainerTag = "BUILDER_CONTAINER_TAG"
 }
 
-extension BuilderViewController where Base == BuilderInternalViewControllerHostView {
+extension ViewControllerBuilder where Base == BuilderInternalViewControllerHostView {
     public func dispose(by disposeBag:DisposeBag) {
         self.modifiableView.dispose(by:disposeBag)
     }
@@ -134,7 +134,7 @@ final public  class BuilderNavigagionViewController: UINavigationController {
     }
 }
 
-extension BuilderViewController where Base : BuilderInternalViewControllerHostView {
+extension ViewControllerBuilder where Base : BuilderInternalViewControllerHostView {
     @discardableResult
     public func title(_ value: String) -> Self {
         self.viewController.title = value
@@ -186,7 +186,7 @@ extension BuilderViewController where Base : BuilderInternalViewControllerHostVi
     
     
     @discardableResult
-    public func alert<T>(_ item:Observable<T?>, _ builder: @escaping (T) -> any BuilderViewController) -> Self {
+    public func alert<T>(_ item:Observable<T?>, _ builder: @escaping (T) -> any ViewControllerBuilder) -> Self {
         item.observe(on: MainScheduler.instance)
             .filter{ $0 != nil}
             .subscribe(onNext:{[weak viewController] item in

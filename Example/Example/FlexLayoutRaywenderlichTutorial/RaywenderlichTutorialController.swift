@@ -10,7 +10,7 @@ import FlexBuilder
 struct ReywnderlichTutorialController : ControllerBuilder {
     @Variable var showSelected: Show? = nil
     var series = Series()
-    func view() -> any BuilderViewController {
+    func view() -> any ViewControllerBuilder {
         return FViewController {
             FScrollView {
                 FVStack {

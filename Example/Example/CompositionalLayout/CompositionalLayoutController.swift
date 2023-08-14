@@ -100,7 +100,7 @@ struct CompositionalLayoutController : ControllerBuilder {
         DataSection(items:  getNewsFeed().map{Item.news($0)}, section: Section.list)
     ]
     
-    func view() -> any BuilderViewController {
+    func view() -> any ViewControllerBuilder {
         FViewController {
             FVStack(space: 6) {
                 LazyGrid($data.asObservable())

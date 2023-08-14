@@ -1,3 +1,10 @@
 Example/Pods
 Example/Example.xcodeproj/xcuserdata/chuthin.xcuserdatad/xcschemes/xcschememanagement.plist
 Example/Example.xcodeproj/xcuserdata/chuthin.xcuserdatad/xcschemes/xcschememanagement.plist
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.swiftpm/xcode/package.xcworkspace/xcuserdata/admin.xcuserdatad/UserInterfaceState.xcuserstate
+.swiftpm/xcode/xcshareddata/xcschemes/FlexBuilder.xcscheme
+.swiftpm/xcode/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanagement.plist
+Example/Example.xcodeproj/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanagement.plist
+Example/Example.xcworkspace/xcuserdata/admin.xcuserdatad/UserInterfaceState.xcuserstate
+Example/Podfile.lock

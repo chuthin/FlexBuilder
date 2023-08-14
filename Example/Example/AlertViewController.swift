@@ -12,7 +12,7 @@ struct AlertViewController : ControllerBuilder {
     @Variable var message:String? = nil
     @Variable var confirmMessage:String? = nil
     @Variable var customeMesssage: String? = nil
-    func view() -> any BuilderViewController {
+    func view() -> any ViewControllerBuilder {
         FViewController {
             FVStack(space: 8) {
                 FButton("Message").onTap { _ in

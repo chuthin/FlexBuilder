@@ -34,7 +34,7 @@ struct CounterController : ReactViewController {
         self.handle = handle
     }
 
-    func view() -> any BuilderViewController {
+    func view() -> any ViewControllerBuilder {
         FViewController {
             FVStack {
                 FHStack{
