@@ -1,6 +1,11 @@
 # FlexBuilder: A Declarative UIKit Library
 SwiftUI builder patterns for UIKit implemetation of [Builder](https://github.com/hmlongco/Builder) with [FlexLayout](https://github.com/layoutBox/FlexLayout) and [PinLayout](https://github.com/layoutBox/PinLayout)
 
+Install
+1. To integrate FlexLayout into an Xcode target, use the `File -> Swift Packages -> Add Package Dependency` menu item.
+2. Add "FLEXLAYOUT_SWIFT_PACKAGE=1" to the Xcode target's `GCC_PREPROCESSOR_DEFINITIONS` build setting. (TARGET -> Build Settings -> Apple Clang-Preprocessing -> Preprocessor Macros)
+
+
 This example is available in the [Examples App](https://github.com/chuthin/FlexBuilder/tree/main/Example).
 <div>
 <img src="https://github.com/chuthin/FlexBuilder/assets/4926746/62abf177-d461-4042-ac30-7b38ed575a6c" width="300"/>
