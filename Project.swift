@@ -10,7 +10,7 @@ let project = Project(
             bundleId: "com.flexbuilder",
             deploymentTarget: .iOS(targetVersion: "11.0", devices: .iphone),
             infoPlist: .default,
-            sources: .paths([.relativeToManifest("Sources/**")]),
+            sources: .paths([.relativeToManifest("Sources/FlexBuilder/**")]),
             dependencies: [
                 .external(name: "PinLayout"),
                 .external(name: "FlexLayout"),
