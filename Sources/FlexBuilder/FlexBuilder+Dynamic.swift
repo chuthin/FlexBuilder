@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import UIKit
 public struct FDynamic: ModifiableView {
     public let modifiableView = BuilderDynamicView()
 
@@ -14,8 +15,8 @@ public struct FDynamic: ModifiableView {
 
     }
 
-    public init<Element>(_ array: Observable<Element>, _ builder:@escaping (_ element: Element) -> FView) {
-        modifiableView.setData(array, builder)
+    public init<Element>(_ data: Observable<Element>, _ builder:@escaping (_ element: Element) -> FView) {
+        modifiableView.setData(data, builder)
     }
 }
 
