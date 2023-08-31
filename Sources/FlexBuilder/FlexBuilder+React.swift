@@ -11,42 +11,7 @@ import RxRelay
 import RxCocoa
 import RxSwift
 
-public struct Reader<W, A> {
-    private let g: (W) -> A
-
-    public init(_ g: @escaping (W) -> A) {
-        self.g = g
-    }
-
-    public static func pure(_ a: A) -> Reader<W, A> {
-        return .init { e in a }
-    }
-
-    public func apply(_ world: W) -> A {
-        return g(world)
-    }
-
-    public func map<B>(_ f: @escaping (A) -> B) -> Reader<W, B> {
-        return Reader<W, B>{ e in f(self.g(e)) }
-    }
-
-    public func flatMap<B>(_ f: @escaping (A) -> Reader<W, B>) -> Reader<W, B> {
-        return Reader<W, B>{ e in f(self.g(e)).g(e) }
-    }
-}
-
-precedencegroup FlatMapPrecedence {
-    associativity: left
-}
-
-infix operator >->: FlatMapPrecedence
-
-
-func >-> <W, A, B>(a: Reader<W, A>, f: @escaping (A) -> Reader<W, B>) -> Reader<W, B> {
-    return a.flatMap(f)
-}
-
-typealias Effect<W,S,A> = (Driver<S>) -> Reader<W,Driver<A>>
+typealias Effect<W,S,A> = (W,Driver<S>) -> Driver<A>
 
 class RenderObject<S,E> :NSObject {
     let initState: S
@@ -62,8 +27,7 @@ class RenderObject<S,E> :NSObject {
         let fakeActions  = BehaviorRelay<A?>(value: nil);
         let state = BehaviorRelay<S>(value: initState)
         if let environment = self.environment {
-            effect?(state.asDriver(onErrorJustReturn: initState))
-                .apply(environment)
+            effect?(environment,state.asDriver(onErrorJustReturn: initState))
                 .asObservable()
                 .bind(to: fakeActions)
                 .disposed(by: disposeBag)
@@ -83,7 +47,7 @@ class RenderObject<S,E> :NSObject {
     }
 }
 
-public struct EffectView<W,V:ReactViewController,R:Reducer,E:Effector> : ControllerBuilder where R.State == V.State , R.Action == V.Action, E.State == V.State, E.Action == V.Action, E.World == W {
+public struct EffectView<W,V:ReactViewController,R:Reducer,E:Effector> : ControllerBuilder where R.State == V.State , R.Action == V.Action, E.State == V.State, E.Action == V.Action, E.Environment == W {
     var render: RenderObject<V.State,W>
     let viewBuilder: (BehaviorRelay<V.State>, @escaping (V.Action) -> Void) -> V
     public init(environment:W?, state: V.State) {
@@ -127,13 +91,13 @@ public protocol Reducer {
 public protocol Effector {
     associatedtype State
     associatedtype Action
-    associatedtype World
-    static func effect(state: Driver<State>) -> Reader<World,Driver<Action>>
+    associatedtype Environment
+    static func effect(eviroment:Environment, state: Driver<State>) -> Driver<Action>
 }
 
 public struct NoEffect<State,Action> : Effector {
-    public static func effect(state: Driver<State>) -> Reader<Any,Driver<Action>> {
-        Reader<Any,Driver<Action>>.pure(.empty())
+    public static func effect(eviroment:Any, state: Driver<State>) -> Driver<Action> {
+        .empty()
     }
 }
 

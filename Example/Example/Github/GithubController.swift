@@ -49,18 +49,20 @@ struct GihubReducer : Reducer {
 }
 
 struct GihubEffector : Effector  {
-    static func effect(state: Driver<GithubState>) -> Reader<Network, Driver<GithubAction>> {
-        return .init{ world -> Driver<GithubAction> in
-            let queryEffect = react(request: {$0}, effects: { resource -> Signal<GithubAction> in
-                return world.getRepo(url: "https://api.github.com/search/repositories?q=\(resource)&page=\(1)&per_page=20")
-                    .asSignal(onErrorSignalWith: .empty())
-                    .map(GithubAction.repos)
-            })(state.map{ $0.query}).asDriver(onErrorDriveWith: .empty())
 
-            return Driver.merge(queryEffect)
-        }
+    static func effect(eviroment:Network, state: Driver<GithubState>) -> Driver<GithubAction> {
+        let queryEffect = react(request: {$0}, effects: { resource -> Signal<GithubAction> in
+            return eviroment.getRepo(url: "https://api.github.com/search/repositories?q=\(resource)&page=\(1)&per_page=20")
+                .asSignal(onErrorSignalWith: .empty())
+                .map(GithubAction.repos)
+        })(state.map{ $0.query}).asDriver(onErrorDriveWith: .empty())
+
+        return Driver.merge(queryEffect)
     }
 }
+
+
+
 
 struct GithubController : ReactViewController {
     let state: BehaviorRelay<GithubState>
