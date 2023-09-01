@@ -60,8 +60,10 @@ extension ViewControllerBuilder where Base == BuilderInternalViewControllerHostV
     }
 }
 
-
 public class BuilderHostViewController : UIViewController {
+    #if DEBUG
+    public var builder: (any ControllerBuilder)?
+    #endif
     var onViewWillAppear:(() -> Void)?
     var onViewWillDisappear:(() -> Void)?
     var onViewDidLoad:(() -> Void)?
@@ -130,7 +132,45 @@ final public  class BuilderNavigagionViewController: UINavigationController {
         navigationBar.layoutIfNeeded()
         navigationBar.tintColor = .white
         navigationBar.barTintColor = .white
-       // navigationBar.backgroundColor(.white)
+
+        #if DEBUG
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(onInjected),
+                                                   name: NSNotification.Name(rawValue: "INJECTION_BUNDLE_NOTIFICATION"),
+                                                   object: nil)
+        #endif
+    }
+
+    @objc func onInjected() {
+         if let currentViewController = UIViewController.topMost {
+             if self.viewControllers.contains(currentViewController) {
+                 if self.viewControllers.count == 1 {
+                     if let uiViewController = self.viewControllers.first as? BuilderHostViewController,
+                        let builder = uiViewController.builder as? (any ReloadViewBuilder) {
+                         let controller = builder.createInstance.view().viewController
+                         self.setViewControllers([controller], animated: false)
+                     }
+                 } else {
+                     if let uiViewController = self.popViewController(animated: false) as? BuilderHostViewController {
+                         if let builder = uiViewController.builder as? (any ReloadViewBuilder) {
+                             let controller = builder.createInstance.view().viewController
+                             self.pushViewController(controller, animated: false)
+                         }
+                     }
+                 }
+             } else {
+                 if let currentViewController = currentViewController as? BuilderHostViewController,
+                        let uiViewController = self.viewControllers.last as? BuilderHostViewController
+
+                      {
+                        uiViewController.dismiss(animated: false, completion: nil)
+                     if let builder = currentViewController.builder as? (any ReloadViewBuilder) {
+                         uiViewController.present(builder.createInstance.view().viewController, animated: false)
+                     }
+                 }
+             }
+
+         }
     }
 }
 
@@ -140,19 +180,19 @@ extension ViewControllerBuilder where Base : BuilderInternalViewControllerHostVi
         self.viewController.title = value
         return self
     }
-    
+
     @discardableResult
     public func viewDidLoad(_ hanlde: @escaping () -> Void) -> Self {
         self.modifiableView.viewController.onViewDidLoad = hanlde
         return self
     }
-    
+
     @discardableResult
     public func viewWillDisappear(_ hanlde: @escaping () -> Void) -> Self {
         self.modifiableView.viewController.onViewWillDisappear = hanlde
         return self
     }
-    
+
     @discardableResult
     public func viewWillAppear(_ hanlde: @escaping () -> Void) -> Self {
         self.modifiableView.viewController.onViewWillAppear = hanlde
@@ -160,7 +200,7 @@ extension ViewControllerBuilder where Base : BuilderInternalViewControllerHostVi
     }
 
     public func barStyle(_ statusBarStyle: UIBarStyle) -> Self {
-        
+
         return self
     }
 
@@ -183,8 +223,8 @@ extension ViewControllerBuilder where Base : BuilderInternalViewControllerHostVi
         self.viewController.navigationItem.leftBarButtonItems = leftBarButtonItems
         return self
     }
-    
-    
+
+
     @discardableResult
     public func alert<T>(_ item:Observable<T?>, _ builder: @escaping (T) -> any ViewControllerBuilder) -> Self {
         item.observe(on: MainScheduler.instance)
@@ -196,10 +236,10 @@ extension ViewControllerBuilder where Base : BuilderInternalViewControllerHostVi
                 viewController?.present(vc, animated: true)
             })
             .disposed(by: self.viewController.rxDisposeBag)
-        
+
         return self
     }
-    
-    
-    
+
+
+
 }

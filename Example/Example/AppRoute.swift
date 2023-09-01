@@ -96,7 +96,7 @@ extension LayoutRoute : Routable {
         case .list:
             return .push(ListController().viewController)
         case .raywenderlich:
-            return .push(ReywnderlichTutorialController().viewController)
+            return .push(ReloadView(ReywnderlichTutorialController()).viewController)
         case .alert:
             return .push(AlertViewController().viewController)
         case .pagingView:
@@ -106,7 +106,6 @@ extension LayoutRoute : Routable {
         }
     }
 }
-
 
 extension ReactiveRoute {
     var route: RouteType {

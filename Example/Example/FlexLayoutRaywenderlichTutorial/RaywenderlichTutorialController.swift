@@ -78,7 +78,7 @@ struct ReywnderlichTutorialController : ControllerBuilder {
                 }.backgroundColor(.black)
             }
         }
-        .title("Reywnderlich Tutorial")
+        .title("Reywnderlich tutorial")
         .viewWillAppear { 
             showSelected = series.shows[0]
         }
