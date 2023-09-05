@@ -1,5 +1,5 @@
 # FlexBuilder: A Declarative UIKit Library
-SwiftUI builder patterns for UIKit implemetation of [Builder](https://github.com/hmlongco/Builder) with [FlexLayout](https://github.com/layoutBox/FlexLayout) and [PinLayout](https://github.com/layoutBox/PinLayout)
+SwiftUI builder patterns for UIKit implemetation of [Builder](https://github.com/hmlongco/Builder) with [FlexLayout](https://github.com/layoutBox/FlexLayout) and [PinLayout](https://github.com/layoutBox/PinLayout). Support Hot reload with [InjectionIII](https://github.com/johnno1962/InjectionIII)
 
 Install
 1. To integrate FlexLayout into an Xcode target, use the `File -> Swift Packages -> Add Package Dependency` menu item.
