@@ -154,7 +154,7 @@ public extension UILabel {
     }
 }
 
-public class BuilderUILabel : UILabel, ViewBuilderBackground {
+public class BuilderUILabel : UILabel, ViewBuilderBackground, DebugBorder {
     public var stretchLayers: [CALayer]?
     public var textGradient: FGradient?
     public override func layoutSubviews() {
@@ -165,4 +165,11 @@ public class BuilderUILabel : UILabel, ViewBuilderBackground {
             self.textColor = UIColor(patternImage: gradientImage)
         }
     }
+
+#if DEBUG
+override open func draw(_ rect: CGRect) {
+    super.draw(rect)
+    drawBorder()
+}
+#endif
 }

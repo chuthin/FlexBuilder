@@ -85,10 +85,22 @@ extension ModifiableView where Base : UIButton {
     }
 }
 
-public class BuilderUIButton : UIButton, ViewBuilderBackground {
+public class BuilderUIButton : UIButton, ViewBuilderBackground, DebugBorder{
+
+
     public var stretchLayers: [CALayer]?
     public override func layoutSubviews() {
         super.layoutSubviews()
         self.strectchFrame()
     }
+
+    #if DEBUG
+    override open func draw(_ rect: CGRect) {
+        super.draw(rect)
+        drawBorder()
+    }
+    #endif
 }
+
+
+

@@ -10,7 +10,7 @@ import RxSwift
 
 public struct FSwitch: ModifiableView {
 
-    public let modifiableView: UISwitch = UISwitch()
+    public let modifiableView = BuilderUISwitch()
 
     // lifecycle
     public init(_ isOn: Bool = true) {
@@ -73,4 +73,15 @@ extension ModifiableView where Base: UISwitch {
                 .disposed(by: $0.rxDisposeBag)
         }
     }
+}
+
+
+
+public class BuilderUISwitch: UISwitch {
+#if DEBUG
+    override open func draw(_ rect: CGRect) {
+        super.draw(rect)
+        drawBorder()
+    }
+#endif
 }

@@ -12,7 +12,7 @@ import RxCocoa
 
 public struct FTextField: ModifiableView {
 
-    public let modifiableView: UITextField = UITextField().then {
+    public let modifiableView: BuilderUITextField = BuilderUITextField().then {
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
     }
 
@@ -184,4 +184,14 @@ extension ModifiableView where Base: UITextField {
         onControlEvent(.editingDidEndOnExit, handler: handler)
     }
 
+}
+
+
+public class BuilderUITextField: UITextField {
+#if DEBUG
+    override open func draw(_ rect: CGRect) {
+        super.draw(rect)
+        drawBorder()
+    }
+#endif
 }

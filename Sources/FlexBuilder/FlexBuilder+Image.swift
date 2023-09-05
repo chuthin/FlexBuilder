@@ -10,7 +10,7 @@ import RxSwift
 
 public struct FImage: ModifiableView {
 
-    public let modifiableView = UIImageView()
+    public let modifiableView = BuilderUIImageView()
 
     public init(_ image: UIImage?) {
         modifiableView.image = image
@@ -61,4 +61,7 @@ extension ModifiableView where Base: UIImageView {
         }
     }
 
+}
+
+public class BuilderUIImageView : UIImageView {
 }

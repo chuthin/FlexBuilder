@@ -76,6 +76,7 @@ struct ReywnderlichTutorialController : ControllerBuilder {
                     .padding(12)
                     
                 }.backgroundColor(.black)
+                .debug(true)
             }
         }
         .title("Reywnderlich tutorial")

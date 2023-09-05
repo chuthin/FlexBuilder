@@ -8,7 +8,7 @@
 import UIKit
 public struct FSpacer: ModifiableView {
 
-    public var modifiableView = UIView()
+    public var modifiableView = BuilderSpacer()
 
     public init() {
         modifiableView.height(16)
@@ -21,5 +21,14 @@ public struct FSpacer: ModifiableView {
     public init(width: CGFloat = 8) {
         modifiableView.width(width)
     }
+}
 
+
+public class BuilderSpacer : UIView {
+#if DEBUG
+    override open func draw(_ rect: CGRect) {
+        super.draw(rect)
+        drawBorder()
+    }
+#endif
 }
