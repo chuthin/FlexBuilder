@@ -7,8 +7,9 @@ Install
 
 
 This example is available in the [Examples App](https://github.com/chuthin/FlexBuilder/tree/main/Example).
-<div>
-<img src="https://github.com/chuthin/FlexBuilder/assets/4926746/62abf177-d461-4042-ac30-7b38ed575a6c" width="300"/>
+| | | 
+|:-------------------------:|:-------------------------:|
+|<img src="https://github.com/chuthin/FlexBuilder/assets/4926746/62abf177-d461-4042-ac30-7b38ed575a6c" width="300"/>|<img src="https://github.com/chuthin/FlexBuilder/assets/4926746/2458b7e4-54f0-43dd-88ee-8d0fc6398280" width="300"/>|
 </div>
 
 <br>
@@ -87,6 +88,7 @@ struct ReywnderlichTutorialController : ControllerBuilder {
                     .padding(12)
                     
                 }.backgroundColor(.black)
+                .debug(true)
             }
         }
         .title("Reywnderlich Tutorial")
