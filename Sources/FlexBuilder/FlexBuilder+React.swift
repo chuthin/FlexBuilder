@@ -161,3 +161,22 @@ public protocol ReactViewController : ControllerBuilder {
 }
 
 
+public extension SharedSequenceConvertibleType  {
+    func bindValue<A>() -> SharedSequence<Self.SharingStrategy,A> where Element == Optional<A> {
+        return self.filter{ $0 != nil}.map{ $0!}
+    }
+    
+    func bindDistinctValue<A: Equatable>() -> SharedSequence<Self.SharingStrategy,A> where Element == Optional<A> {
+        return self.filter{ $0 != nil}.map{ $0!}.distinctUntilChanged()
+    }
+}
+
+public extension Observable {
+    func bindValue<A>() -> Observable<A> where Element == Optional<A> {
+        return self.filter{ $0 != nil}.map{ $0!}
+    }
+    
+    func bindDistinctValue<A: Equatable>() -> Observable<A> where Element == Optional<A> {
+        return self.filter{ $0 != nil}.map{ $0!}.distinctUntilChanged()
+    }
+}

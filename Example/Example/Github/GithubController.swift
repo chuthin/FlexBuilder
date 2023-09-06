@@ -158,7 +158,7 @@ struct GithubController : ReactViewController {
                 }.padding(12)
 
                 FList()
-                    .itemsSource(state.map{$0.repos}.filter{ $0 != nil}.map { $0!}.asObservable())
+                    .itemsSource(state.map{$0.repos}.bindValue())
                     .register{
                         FCell<RepoCell,Repo>()
                             .dataContext{ cell, indexPath, repo, numberOfItems in
@@ -190,8 +190,7 @@ struct GithubController : ReactViewController {
                     .alignSelf(.center)
                     .backgroundColor(.lightGray)
                 }
-
-                .hidden(bind: state.map{ !$0.isLoading }.distinctUntilChanged())
+                .hidden(bind: state.map{!$0.isLoading}.bindDistinctValue())
                 .justifyContent(.center)
                 .position(.absolute)
                 .all(0)

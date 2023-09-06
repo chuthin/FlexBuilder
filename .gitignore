@@ -8,3 +8,7 @@ Example/Example.xcodeproj/xcuserdata/chuthin.xcuserdatad/xcschemes/xcschememanag
 Example/Example.xcodeproj/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanagement.plist
 Example/Example.xcworkspace/xcuserdata/admin.xcuserdatad/UserInterfaceState.xcuserstate
 Example/Podfile.lock
+Example/Example.xcworkspace/xcuserdata/chuthin.xcuserdatad/UserInterfaceState.xcuserstate
+Example/Example.xcworkspace/xcuserdata/chuthin.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+*.xcuserstate
+Example/Example.xcworkspace/xcuserdata/chuthin.xcuserdatad/UserInterfaceState.xcuserstate
