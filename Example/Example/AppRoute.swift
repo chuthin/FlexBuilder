@@ -129,6 +129,7 @@ extension GithubRoute: Routable {
         switch self {
         case .list:
             return .push(EffectView<Network,GithubController,GihubReducer,GihubEffector>(environment: NetworkEnvironment(),state: GithubState.data(GithubData())).viewController)
+            //return .push(EffectView<Network,BaseGithubController,GihubReducer,GihubEffector>(environment: NetworkEnvironment(), state: GithubState.data(GithubData())).viewController)
         case .detail(let repo):
             return .present(HostViewController(GithubDetailView(repo: repo).build()))
         case .open(let repo):

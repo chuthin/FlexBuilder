@@ -163,79 +163,7 @@ struct GihubEffector<State: GithubStateProtocol, Action: GithubActionProtocol> :
     }
 }
 
-struct GithubController<State: GithubStateProtocol, Action: GithubActionProtocol> : ReactViewController {
-    let state: BehaviorRelay<State>
-    let handle: (Action) -> Void
-    @Variable var query: String = ""
-
-    public init(state: BehaviorRelay<State>, handle: @escaping (Action) -> Void) {
-        self.state = state
-        self.handle = handle
-    }
-
-    func view() -> any ViewControllerBuilder {
-        FViewController {
-            FVStack {
-                FHStack {
-                    FVStack{
-                        FTextField($query).margin(.horizontal, 8).height(50)
-                    }
-                    .boder(.gray, 1).fits()
-                    FButton("Tìm kiếm")
-                        .backgroundColor(.blue)
-                        .onTap{ _ in
-                            handle(.query(query))
-                        }
-                }.padding(12)
-
-                FList()
-                    .itemsSource(state.map{$0.repos}.bindValue())
-                    .register{
-                        FCell<RepoCell,Repo>()
-                            .dataContext{ cell, indexPath, repo, numberOfItems in
-                                cell?.repo = repo
-                                cell?.dividerHidden = indexPath.item == numberOfItems - 1
-                            }
-                            .action{ action in
-                                handle(action)
-                            }
-                    }
-                    .showVerticalIndicator(false)
-                    .onSelect{ context in
-                        if let repo = context.data as? Repo {
-                            handle(.goDetail(repo))
-                        }
-                    }
-                    .loadMore {
-                        handle(.loadMore())
-                    }
-                    .fits()
-                FVStack {
-                    FHStack {
-                        UIActivityIndicatorView().then {
-                            $0.startAnimating()
-                            $0.color = .black
-                        }.width(50).height(50)
-                        FText("Loading...").margin(.right, 8)
-                    }
-                    .alignSelf(.center)
-                    .backgroundColor(.lightGray)
-                }
-                .hidden(bind: state.map{!$0.isLoading}.bindDistinctValue())
-                .justifyContent(.center)
-                .position(.absolute)
-                .all(0)
-            }
-        }
-        .title("Github search hot reload")
-        .rightBarButtonItems{
-            FButton("Add")
-                .color(.black)
-                .margin(.horizontal, 12)
-        }
-        .navigate(state.map{ $0.route}.filter{ $0 != nil}.map{ $0!})
-    }
-}
+class GithubController<State: GithubStateProtocol, Action: GithubActionProtocol> : BaseGithubController<State,Action> {}
 
 class BaseGithubController<State: GithubStateProtocol, Action: GithubActionProtocol> : ReactViewController {
     let state: BehaviorRelay<State>
@@ -247,7 +175,48 @@ class BaseGithubController<State: GithubStateProtocol, Action: GithubActionProto
         self.handle = handle
     }
 
-   
+    func dataView() -> FVStack {
+        FVStack {
+            FList()
+                .itemsSource(state.map{$0.repos}.bindValue())
+                .register{
+                    FCell<RepoCell<Action>,Repo>()
+                        .dataContext{ cell, indexPath, repo, numberOfItems in
+                            cell?.repo = repo
+                            cell?.dividerHidden = indexPath.item == numberOfItems - 1
+                        }
+                        .action{ action in
+                            self.handle(action)
+                        }
+                }
+                .showVerticalIndicator(false)
+                .onSelect{[weak self]  context in
+                    if let repo = context.data as? Repo {
+                        self?.handle(.goDetail(repo))
+                        
+                    }
+                }
+                .loadMore { [weak self] in
+                    self?.handle(.loadMore())
+                }
+                .fits()
+            FVStack {
+                FHStack {
+                    UIActivityIndicatorView().then {
+                        $0.startAnimating()
+                        $0.color = .black
+                    }.width(50).height(50)
+                    FText("Loading...").margin(.right, 8)
+                }
+                .alignSelf(.center)
+                .backgroundColor(.lightGray)
+            }
+            .hidden(bind: state.map{!$0.isLoading}.bindDistinctValue())
+            .justifyContent(.center)
+            .position(.absolute)
+            .all(0)
+        }
+    }
     
     func view() -> any ViewControllerBuilder {
         FViewController {
@@ -260,11 +229,13 @@ class BaseGithubController<State: GithubStateProtocol, Action: GithubActionProto
                     FButton("Tìm kiếm")
                         .backgroundColor(.blue)
                         .onTap{[weak self] _ in
-                            self?.handle(.query(self?.query ?? ""))
+                            if let `self` = self {
+                                self.handle(.query(self.query))
+                            }
                         }
                 }.padding(12)
 
-                
+                dataView().fits()
             }
         }
         .title("Github search hot reload")
