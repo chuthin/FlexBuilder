@@ -24,8 +24,36 @@ enum GithubState  {
     case loadMore(GithubData)
 }
 
+protocol GithubStateProtocol {
+    var repos:[Repo]? {get}
+    var isLoading:Bool {get}
+    var route:AppRoute? {get}
+    var query:String? {get}
+    var data:GithubData {get}
+    var isLoadMore:Bool {get}
+    static func data(_ value:GithubData) -> Self
+    static func route(_ route:AppRoute,_ value:GithubData) -> Self
+    static func search(_ value:GithubData) -> Self
+    static func loadMore(_ value:GithubData) -> Self
+}
 
-extension GithubState {
+protocol GithubActionProtocol {
+    static func query(_ value: String) -> Self
+    static func repos(_ value: [Repo]) -> Self
+    static func goDetail(_ value:Repo) -> Self
+    static func more(_ value:Repo?) -> Self
+    static func loadMore() -> Self
+}
+
+
+extension GithubState : GithubStateProtocol {
+    var isLoadMore: Bool {
+        if case .loadMore = self {
+            return true
+        }
+        return false
+    }
+    
     var query: String? {
         if case .search(let data) = self {
             return query(text: data.query, page: data.page)
@@ -83,8 +111,14 @@ public enum GithubAction {
     case loadMore
 }
 
-struct GihubReducer : Reducer {
-    static func reduce(state: GithubState, action: GithubAction) -> GithubState {
+extension GithubAction : GithubActionProtocol {
+    static func loadMore() -> GithubAction {
+        return .loadMore
+    }
+}
+
+struct GihubReducer<State: GithubStateProtocol> : Reducer {
+    static func reduce(state: State, action: GithubAction) -> State {
         switch action {
         case .query(let value):
             var data = state.data
@@ -105,7 +139,7 @@ struct GihubReducer : Reducer {
         case .more(let repo):
             return .route(.reactive(.github(.open(repo))), state.data)
         case .loadMore:
-            if case .loadMore = state {
+            if state.isLoadMore {
                 return state
             }
             var data = state.data
@@ -115,13 +149,13 @@ struct GihubReducer : Reducer {
     }
 }
 
-struct GihubEffector : Effector  {
-    static func effect(eviroment: Network, query: String) -> Single<GithubAction> {
+struct GihubEffector<State: GithubStateProtocol, Action: GithubActionProtocol> : Effector  {
+    static func effect(eviroment: Network, query: String) -> Single<Action> {
         return eviroment.getRepo(url: query)
-            .map(GithubAction.repos)
+            .map(Action.repos(_:))
     }
 
-    static func effect(eviroment:Network, state: Driver<GithubState>) -> Driver<GithubAction> {
+    static func effect(eviroment:Network, state: Driver<State>) -> Driver<Action> {
         return react(request: {$0}, effects: { resouces -> Signal<Action> in
             return effect(eviroment: eviroment, query: resouces)
                 .asSignal(onErrorSignalWith: .empty())
@@ -129,15 +163,12 @@ struct GihubEffector : Effector  {
     }
 }
 
-
-
-
-struct GithubController : ReactViewController {
-    let state: BehaviorRelay<GithubState>
-    let handle: (GithubAction) -> Void
+struct GithubController<State: GithubStateProtocol, Action: GithubActionProtocol> : ReactViewController {
+    let state: BehaviorRelay<State>
+    let handle: (Action) -> Void
     @Variable var query: String = ""
 
-    public init(state: BehaviorRelay<GithubState>, handle: @escaping (GithubAction) -> Void) {
+    public init(state: BehaviorRelay<State>, handle: @escaping (Action) -> Void) {
         self.state = state
         self.handle = handle
     }
@@ -176,7 +207,7 @@ struct GithubController : ReactViewController {
                         }
                     }
                     .loadMore {
-                        handle(.loadMore)
+                        handle(.loadMore())
                     }
                     .fits()
                 FVStack {
@@ -205,6 +236,48 @@ struct GithubController : ReactViewController {
         .navigate(state.map{ $0.route}.filter{ $0 != nil}.map{ $0!})
     }
 }
+
+class BaseGithubController<State: GithubStateProtocol, Action: GithubActionProtocol> : ReactViewController {
+    let state: BehaviorRelay<State>
+    let handle: (Action) -> Void
+    @Variable var query: String = ""
+
+    required public init(state: BehaviorRelay<State>, handle: @escaping (Action) -> Void) {
+        self.state = state
+        self.handle = handle
+    }
+
+   
+    
+    func view() -> any ViewControllerBuilder {
+        FViewController {
+            FVStack {
+                FHStack {
+                    FVStack{
+                        FTextField($query).margin(.horizontal, 8).height(50)
+                    }
+                    .boder(.gray, 1).fits()
+                    FButton("Tìm kiếm")
+                        .backgroundColor(.blue)
+                        .onTap{[weak self] _ in
+                            self?.handle(.query(self?.query ?? ""))
+                        }
+                }.padding(12)
+
+                
+            }
+        }
+        .title("Github search hot reload")
+        .rightBarButtonItems{
+            FButton("Add")
+                .color(.black)
+                .margin(.horizontal, 12)
+        }
+        .navigate(state.map{ $0.route}.filter{ $0 != nil}.map{ $0!})
+    }
+}
+
+
 
 struct GithubDetailView : ViewBuilder {
     var repo: Repo

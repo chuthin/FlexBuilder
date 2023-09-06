@@ -74,7 +74,9 @@ public struct EffectView<W,V:ReactViewController,R:Reducer,E:Effector> : ReloadV
         let vc =  render.expo(scheduler: MainScheduler.asyncInstance, viewBuilder: viewBuilder , reducer: R.reduce, effect: E.effect).view()
         if let controller = vc.viewController as? BuilderHostViewController {
             controller.disposeBag = self.render.disposeBag
-            controller.builder = self //EffectView(environment: environment, state: render.currentState)
+            #if DEBUG
+            controller.builder = self
+            #endif //EffectView(environment: environment, state: render.currentState)
         }
         return vc
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 import FlexBuilder
-class RepoCell : ActionTableViewCell<GithubAction> {
+class RepoCell<Action:GithubActionProtocol> : ActionTableViewCell<Action> {
     @Variable var repo: Repo? = nil
     @Variable var dividerHidden:Bool = true
     override func body() -> FView {
