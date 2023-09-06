@@ -24,17 +24,19 @@ extension Network {
 
 struct NetworkEnvironment: Network {
     func getRepo(url: String, result:@escaping ([Repo]) -> Void) {
+        print(url)
         if let urlRequest = URL(string: url) {
             let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
                 if let data = data {
+
                     let decoder = JSONDecoder()
                     if let repos = try? decoder.decode(RepoResponse.self, from: data) {
-                        if let items = repos.items {
-                            DispatchQueue.main.async {
-                                result(items)
-                            }
-
+                        print(repos)
+                        DispatchQueue.main.async {
+                            result(repos.items ?? [])
                         }
+                    } else {
+                        result([])
                     }
                 }
             }
