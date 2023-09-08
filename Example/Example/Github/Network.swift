@@ -7,7 +7,7 @@
 
 import Foundation
 import RxSwift
-protocol Network {
+public protocol Network {
     func getRepo(url: String, result:@escaping ([Repo]) -> Void)
 }
 
@@ -28,7 +28,8 @@ struct NetworkEnvironment: Network {
         if let urlRequest = URL(string: url) {
             let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
                 if let data = data {
-
+                    let json = String(decoding: data, as: UTF8.self)
+                    print(json)
                     let decoder = JSONDecoder()
                     if let repos = try? decoder.decode(RepoResponse.self, from: data) {
                         print(repos)

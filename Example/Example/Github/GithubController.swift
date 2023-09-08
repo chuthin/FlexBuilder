@@ -11,20 +11,21 @@ import RxCocoa
 import RxFeedback
 import FlexBuilder
 
-struct GithubData  {
+public struct GithubData  {
     var repos:[Repo]?
     var query:String = ""
     var page: Int = 1
+    var isLoading : Bool = false
 }
 
-enum GithubState  {
+public enum GithubState  {
     case data(GithubData)
     case route(AppRoute,GithubData)
     case search(GithubData)
     case loadMore(GithubData)
 }
 
-protocol GithubStateProtocol {
+public protocol GithubStateProtocol {
     var repos:[Repo]? {get}
     var isLoading:Bool {get}
     var route:AppRoute? {get}
@@ -47,14 +48,14 @@ protocol GithubActionProtocol {
 
 
 extension GithubState : GithubStateProtocol {
-    var isLoadMore: Bool {
+    public var isLoadMore: Bool {
         if case .loadMore = self {
             return true
         }
         return false
     }
     
-    var query: String? {
+    public var query: String? {
         if case .search(let data) = self {
             return query(text: data.query, page: data.page)
         } else if case .loadMore(let data) = self {
@@ -67,28 +68,25 @@ extension GithubState : GithubStateProtocol {
         return "https://api.github.com/search/repositories?q=\(data.query)&page=\(data.page)&per_page=20"
     }
 
-    var repos:[Repo]? {
+    public var repos:[Repo]? {
         if case .data(let state) = self {
             return state.repos
         }
         return nil
     }
 
-    var route: AppRoute? {
+    public var route: AppRoute? {
         if case .route(let route,_) = self {
             return route
         }
         return nil
     }
 
-    var isLoading: Bool {
-        if case .search(_) = self {
-            return true
-        }
-        return false
+    public var isLoading: Bool {
+        return data.isLoading
     }
 
-    var data: GithubData {
+    public var data: GithubData {
         switch self {
         case .data(let data):
             return data
@@ -117,17 +115,19 @@ extension GithubAction : GithubActionProtocol {
     }
 }
 
-struct GihubReducer<State: GithubStateProtocol> : Reducer {
-    static func reduce(state: State, action: GithubAction) -> State {
+public struct GihubReducer<State: GithubStateProtocol> : Reducer {
+    public static func reduce(state: State, action: GithubAction) -> State {
         switch action {
         case .query(let value):
             var data = state.data
             data.query = value
+            data.isLoading = true
             data.page = 1
             data.repos = []
             return .search(data)
         case .repos(let items):
             var data = state.data
+            data.isLoading = false
             if data.repos?.isEmpty ?? true {
                 data.repos = items
             } else {
@@ -139,10 +139,11 @@ struct GihubReducer<State: GithubStateProtocol> : Reducer {
         case .more(let repo):
             return .route(.reactive(.github(.open(repo))), state.data)
         case .loadMore:
-            if state.isLoadMore {
+            if state.isLoadMore || state.isLoading {
                 return state
             }
             var data = state.data
+            data.isLoading = true
             data.page += 1
             return .loadMore(data)
         }
@@ -234,7 +235,6 @@ class BaseGithubController<State: GithubStateProtocol, Action: GithubActionProto
                             }
                         }
                 }.padding(12)
-
                 dataView().fits()
             }
         }

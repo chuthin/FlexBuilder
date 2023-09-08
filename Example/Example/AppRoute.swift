@@ -44,13 +44,13 @@ extension ViewControllerBuilder {
     }
 }
 
-enum AppRoute {
+public enum AppRoute {
     case layout(LayoutRoute)
     case reactive(ReactiveRoute)
 }
 
 extension AppRoute : Routable {
-    var route: RouteType {
+    public var route: RouteType {
         switch self {
         case .layout(let value):
             return value.route
@@ -60,7 +60,7 @@ extension AppRoute : Routable {
     }
 }
 
-enum LayoutRoute  {
+public enum LayoutRoute  {
     case all
     case list
     case raywenderlich
@@ -69,20 +69,20 @@ enum LayoutRoute  {
     case compositional
 }
 
-enum ReactiveRoute {
+public enum ReactiveRoute {
     case all
     case counter
     case github(GithubRoute)
 }
 
-enum GithubRoute {
+public enum GithubRoute {
     case list
     case detail(Repo)
     case open(Repo?)
 }
 
 extension LayoutRoute : Routable {
-    var route: RouteType {
+    public var route: RouteType {
         switch self  {
         case .all:
             let vc = ListRouteController([
@@ -125,7 +125,7 @@ extension ReactiveRoute {
 }
 
 extension GithubRoute: Routable {
-    var route: RouteType {
+    public var route: RouteType {
         switch self {
         case .list:
             return .push(EffectView<Network,GithubController,GihubReducer,GihubEffector>(environment: NetworkEnvironment(),state: GithubState.data(GithubData())).viewController)
