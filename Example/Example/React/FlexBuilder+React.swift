@@ -10,6 +10,7 @@ import UIKit
 import RxRelay
 import RxCocoa
 import RxSwift
+import FlexBuilder
 
 typealias Effect<W,S,A> = (W,Driver<S>) -> Driver<A>
 
