@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol DebugBorder {}
-
+import UIKit
 #if DEBUG
 extension UIView {
     private static var debugAttributesKey = "DebugAttributesKey"
