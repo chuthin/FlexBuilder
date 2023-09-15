@@ -58,7 +58,7 @@ class RenderObject<S,E> :NSObject {
 
 public struct EffectView<W,V:ReactViewController,R:Reducer,E:Effector> : ReloadViewBuilder where R.State == V.State , R.Action == V.Action, E.State == V.State, E.Action == V.Action, E.Environment == W {
 
-    var createInstance: EffectView<W, V, R, E> {
+    public var createInstance: EffectView<W, V, R, E> {
         return EffectView<W, V, R, E>(environment: environment, state: render.currentState)
     }
 
@@ -84,7 +84,7 @@ public struct EffectView<W,V:ReactViewController,R:Reducer,E:Effector> : ReloadV
 }
 
 public struct NoEffectView<V:ReactViewController,R:Reducer> : ReloadViewBuilder where R.State == V.State , R.Action == V.Action{
-    var createInstance: NoEffectView<V, R> {
+    public var createInstance: NoEffectView<V, R> {
         return NoEffectView<V, R>(state: render.currentState)
     }
 
@@ -109,7 +109,7 @@ public struct NoEffectView<V:ReactViewController,R:Reducer> : ReloadViewBuilder 
 }
 
 public struct ReloadView<V:ControllerBuilder> : ReloadViewBuilder {
-    var createInstance: ReloadView {
+    public var createInstance: ReloadView {
         return ReloadView(self.viewBuilder())
     }
 
@@ -130,7 +130,7 @@ public struct ReloadView<V:ControllerBuilder> : ReloadViewBuilder {
     }
 }
 
-protocol ReloadViewBuilder : ControllerBuilder {
+public protocol ReloadViewBuilder : ControllerBuilder {
     var createInstance:Self {get}
 }
 
