@@ -16,7 +16,12 @@ let project = Project(
                 .external(name: "FlexLayout"),
                 .external(name: "RxSwift"),
                 .external(name: "RxCocoa")
-            ]
+            ],
+            settings: .settings(
+                base: ["BUILD_LIBRARY_FOR_DISTRIBUTION":"YES"], // DISTRIBUTION
+                debug: [ "OTHER_LDFLAGS": "$(inherited) -Xlinker -interposable"] // injectionIII
+            )
+
         ),
     ]
 )
