@@ -65,13 +65,28 @@ public struct FHStack: ModifiableView {
     }
 }
 
+extension ModifiableView where Base : BuilderStackView {
+    @discardableResult
+    public func didMoveToWindow(_ hanlde: @escaping () -> Void) -> Self {
+        self.modifiableView.moveToWindowHanle = hanlde
+        return self
+    }
+}
+
+
 public class BuilderStackView : UIView, ViewBuilderBackground, DebugBorder {
     public var stretchLayers: [CALayer]?
+    public var moveToWindowHanle: (() -> Void)?
     public override func layoutSubviews() {
         super.layoutSubviews()
         self.strectchFrame()
     }
 
+    override public func didMoveToWindow() {
+        super .didMoveToWindow()
+        self.moveToWindowHanle?()
+    }
+    
 #if DEBUG
 override open func draw(_ rect: CGRect) {
     super.draw(rect)
